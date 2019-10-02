@@ -1,20 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 // Routes
 import { APP_ROUTES } from './app.routes';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { LoginComponent } from './components/login/login.component';
+import { NopagefoundComponent } from './components/nopagefound/nopagefound.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PagesComponent } from './pages/pages.component';
-import { RegisterComponent } from './login/register.component';
+
+import { RegisterComponent } from './components/user/register.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { ForgotpasswordComponent } from './login/forgotpassword/forgotpassword.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -34,7 +36,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     APP_ROUTES,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
