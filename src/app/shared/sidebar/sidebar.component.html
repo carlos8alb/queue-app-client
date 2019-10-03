@@ -1,1 +1,66 @@
-<p>sidebar works!</p>
+<ul class="navbar-nav sidebar bg-gradient-primary sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/dashboard">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-weight fa-2x"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Scale App</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <li class="nav-item active">
+        <a class="nav-link" routerLink="/dashboard">
+            <i class="fas fa-fw fa-home mr-1"></i>
+            <span>Inicio</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Pacientes
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/pacients">
+            <i class="fas fa-fw fa-address-book mr-1"></i>
+            <span>Fichas</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">
+        Config
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/profile">
+            <i class="fas fa-fw fa-user mr-1"></i>
+            <span>Perfil</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <li class="nav-item">
+        <a class="nav-link" routerLink="/login" (click)="logOut()">
+            <i class="fas fa-fw fa-sign-out-alt mr-1"></i>
+            <span>Salir</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+</ul>

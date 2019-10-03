@@ -78,4 +78,12 @@ export class UserService {
       });
   }
 
+  logOut() {
+    this.user = null;
+    this.token = '';
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('id');
+  }
+
 }
