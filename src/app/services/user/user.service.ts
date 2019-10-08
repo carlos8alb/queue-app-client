@@ -25,7 +25,7 @@ export class UserService {
   loadStorage() {
     if (localStorage.getItem('token')) {
       this.token = localStorage.getItem('token');
-      this.user = JSON.parse(localStorage.getItem('usuario'));
+      this.user = JSON.parse(localStorage.getItem('user'));
     } else {
       this.token = '';
       this.user = null;
@@ -69,10 +69,29 @@ export class UserService {
     this.url = GLOBAL.url + '/user/register';
     return this.http.post(this.url, user)
       .map((resp: any) => {
-        Swal.fire('Welcome', 'User has been created successfully', 'success');
+        Swal.fire('Bienvenido', 'El usuario ha sido creado correctamente', 'success');
         return resp.user;
       })
       .catch(err => {
+        Swal.fire('Error', err.error.message, 'error');
+        return Observable.throwError(err);
+      });
+  }
+
+  update( userUpdate: User )  {
+    this.url = GLOBAL.url + '/user/update/' + userUpdate._id + '?token=' + this.token;
+    return this.http.put(this.url, userUpdate)
+      .map((resp: any) => {
+
+        if (userUpdate._id === this.user._id) {
+          this.saveStorage(resp.userUpdatedId, this.token, resp.user);
+        }
+
+        Swal.fire('', 'El usuario ha sido actualizado correctamente', 'success');
+        return resp;
+      })
+      .catch(err => {
+        console.log(err);
         Swal.fire('Error', err.error.message, 'error');
         return Observable.throwError(err);
       });

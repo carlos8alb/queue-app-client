@@ -11329,3 +11329,9 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
     width: 100%
 }
+
+.align-right {
+    position: relative;
+    margin: 0px auto 10px;
+    float: right
+}

@@ -37,12 +37,12 @@ export class RegisterComponent implements OnInit {
     }
 
     if (registerForm.value.password !== registerForm.value.repassword ) {
-      Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
+      Swal.fire('', 'Las contraseñas no coinciden', 'info');
       return;
     }
 
     if (registerForm.value.password.length < 6) {
-      Swal.fire('Error', 'La contraseña debe contener al menos 6 caracteres', 'error');
+      Swal.fire('', 'La contraseña debe contener al menos 6 caracteres', 'info');
       return;
     }
 
