@@ -11335,3 +11335,11 @@ body.sidebar-toggled footer.sticky-footer {
     margin: 0px auto 10px;
     float: right
 }
+
+.icon {
+    cursor: pointer
+}
+
+.border-right-hidden {
+    border-right: hidden
+}

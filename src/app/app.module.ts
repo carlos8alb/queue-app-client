@@ -26,6 +26,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PagesComponent } from './pages/pages.component';
 import { PacientsSearchComponent } from './pages/search/pacients/pacients-search.component';
 import { PacientsComponent } from './pages/pacients/pacients.component';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { PacientsComponent } from './pages/pacients/pacients.component';
     FooterComponent,
     ForgotpasswordComponent,
     PacientsSearchComponent,
-    PacientsComponent
+    PacientsComponent,
+    LoaderComponent,
+    PacientEditComponent
   ],
   imports: [
     BrowserModule,

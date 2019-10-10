@@ -46,7 +46,7 @@ export class UserService {
         } else {
           errorMessage = err.error.message;
         }
-        Swal.fire('Error', errorMessage, 'error');
+        Swal.fire('', errorMessage, 'error');
         return Observable.throwError(err);
       });
   }
@@ -73,7 +73,7 @@ export class UserService {
         return resp.user;
       })
       .catch(err => {
-        Swal.fire('Error', err.error.message, 'error');
+        Swal.fire('', err.error.message, 'error');
         return Observable.throwError(err);
       });
   }
@@ -92,7 +92,7 @@ export class UserService {
       })
       .catch(err => {
         console.log(err);
-        Swal.fire('Error', err.error.message, 'error');
+        Swal.fire('', err.error.message, 'error');
         return Observable.throwError(err);
       });
   }

@@ -3,6 +3,7 @@ import { UserService } from '../../services/user/user.service';
 import { User } from 'src/app/models/users';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -34,15 +35,26 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    this.user.name = userProfileform.value.name;
-    this.user.surname = userProfileform.value.surname;
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      type: 'question',
+      showCancelButton: true
+    }).then((result) => {
+      if (result.value) {
+        this.user.name = userProfileform.value.name;
+        this.user.surname = userProfileform.value.surname;
 
-    this._userService.update(this.user)
-      .subscribe(
-        resp => {
-          this._userService.user = resp.user;
-        }
-    );
+        this._userService.update(this.user)
+          .subscribe(
+            resp => {
+              this._userService.user = resp.user;
+            }
+        );
+      } else {
+        this.router.navigate(['/profile']);
+        return;
+      }
+    });
 
   }
 

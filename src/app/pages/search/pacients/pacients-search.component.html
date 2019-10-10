@@ -8,6 +8,66 @@
     <!-- Content Row -->
     <div class="row">
 
+        <div class="container-fluid animated--fade-in">
+
+            <div>
+                <app-loader *ngIf="loading"></app-loader>
+            </div>
+
+            <!-- Content Row -->
+            <div class="cointainer-fluid" *ngIf="!loading">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>DNI</th>
+                                        <th>Apellido</th>
+                                        <th>Nombre</th>
+                                        <th>Obra Social</th>
+                                        <th [ngStyle]="{'border-right': 'hidden'}"></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th>DNI</th>
+                                        <th>Apellido</th>
+                                        <th>Nombre</th>
+                                        <th>Obra Social</th>
+                                        <th [ngStyle]="{'border-right': 'hidden'}"></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot> -->
+                                <tbody>
+                                    <tr *ngIf="pacients.length === 0">
+                                        <br>
+                                        <p>
+                                            No se encontraron pacientes
+                                        </p>
+                                    </tr>
+                                    <tr *ngFor="let pacient of pacients">
+                                        <td>{{pacient.dni}}</td>
+                                        <td>{{pacient.surname}}</td>
+                                        <td>{{pacient.name}}</td>
+                                        <td>{{pacient.socialInsureance}}</td>
+                                        <td routerLink="/pacient-edit/{{pacient._id}}" class="text-center" [ngStyle]="{'border-right': 'hidden'}">
+                                            <i class="fa fa-user-edit icon" aria-hidden="true"></i>
+                                        </td>
+                                        <td (click)="deletePacient(pacient._id)" class="text-center">
+                                            <i class="fa fa-trash icon" aria-hidden="true"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
