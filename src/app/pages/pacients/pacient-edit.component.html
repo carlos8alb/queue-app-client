@@ -1,1 +1,113 @@
-<p>{{pacientId}}</p>
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 *ngIf="!pacientId" class="h3 mb-0 text-gray-800">Nueva ficha</h1>
+        <h1 *ngIf="pacientId" class="h3 mb-0 text-gray-800">Editar ficha</h1>
+    </div>
+
+    <div>
+        <app-loader *ngIf="loading"></app-loader>
+    </div>
+
+    <!-- Content Row -->
+    <div *ngIf="!loading" class="row">
+
+      <div class="card shadow mb-4 w-100">
+        <a href="#personalInformation" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="personalInformation">
+          <h6 class="m-0 font-weight-bold text-primary">Datos personales</h6>
+        </a>
+        <div class="collapse show" id="personalInformation">
+          <div class="card-body">
+            <form class="user" ngNativeValidate #pacientForm=ngForm (ngSubmit)="onSubmit(pacientForm)">
+                <div class="row">
+                    <div class="col-2">
+                        <img class="img-fluid" src="../../../assets/images/no-img.jpg" alt="">
+                    </div>
+                    <div class="col-10">
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="p-0 m-0 ml-3"><small>DNI</small></label>
+                                <input type="number" class="form-control form-control-user" placeholder="Ingrese el DNI" [ngModel]="pacient.dni" name="dni" required value="{{pacient.dni}}">
+                            </div>
+                            <div class="col-4">
+                                <label class="p-0 m-0 ml-3"><small>Nombre</small></label>
+                                <input type="text" class="form-control form-control-user" placeholder="Ingrese el nombre" [ngModel]="pacient.name" name="name" required value="{{pacient.name}}">
+                            </div>
+                            <div class="col-4">
+                                <label class="p-0 m-0 ml-3"><small>Apellido</small></label>
+                                <input type="text" class="form-control form-control-user" placeholder="Ingrese el apellido" [ngModel]="pacient.surname" name="surname" value="{{pacient.surname}}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label class="p-0 m-0 ml-3"><small>Fecha de Nacimiento</small></label>
+                                <input (change)="calculateAge($event.target.value)" type="date"
+                                        class="form-control form-control-user" placeholder="Ingrese la fecha de nacimiento"
+                                        [ngModel]="birthday" name="birthday" required value="{{birthday}}"
+                                        min="1900-01-01" max="2900-01-01">
+                            </div>
+                            <div class="col-2">
+                                <label class="p-0 m-0 ml-3"><small>Edad</small></label>
+                                <input type="text" [disabled]="true" class="form-control form-control-user" placeholder="Edad" [ngModel]="age" name="age" required value="{{age}}">
+                            </div>
+                            <div class="col-6">
+                                <label class="p-0 m-0 ml-3"><small>Domicilio</small></label>
+                                <input type="text" class="form-control form-control-user" placeholder="Ingrese el domicilio" [ngModel]="pacient.address" name="address" value="{{pacient.address}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label class="p-0 m-0 ml-3"><small>Obra social</small></label>
+                        <input type="text" class="form-control form-control-user" placeholder="Ingrese la obra social" [ngModel]="pacient.socialInsureance" name="socialInsureance" value="{{pacient.socialInsureance}}">
+                    </div>
+                    <div class="col-3">
+                        <label class="p-0 m-0 ml-3"><small>Lugar de Atención</small></label>
+                        <input type="text" class="form-control form-control-user" placeholder="Ingrese el lugar de atención" [ngModel]="pacient.placeAppointment" name="placeAppointment" value="{{pacient.placeAppointment}}">
+                    </div>
+                    <div class="col-3">
+                        <label class="p-0 m-0 ml-3"><small>Número de contacto</small></label>
+                        <input type="number" class="form-control form-control-user" placeholder="Ingrese el número de contacto" [ngModel]="pacient.contactNumber" name="contactNumber" value="{{pacient.contactNumber}}">
+                    </div>
+                    <div class="col-3">
+                        <label class="p-0 m-0 ml-3"><small>Email</small></label>
+                        <input type="email" class="form-control form-control-user" placeholder="Ingrese el email" [ngModel]="pacient.email" name="email" value="{{pacient.email}}">
+                    </div>
+                </div>
+                <div class="align-right">
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                      <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4 w-100">
+        <a href="#antecedentsInformation" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="antecedentsInformation">
+          <h6 class="m-0 font-weight-bold text-primary">Antecedentes</h6>
+        </a>
+        <div class="collapse show" id="antecedentsInformation">
+          <div class="card-body">
+            <form class="user" ngNativeValidate #antecedentsForm=ngForm (ngSubmit)="onSubmit(antecedentsForm)">
+                <div class="row mb-3">
+                    <label class="p-0 m-0 ml-3"><small>Personales</small></label>
+                    <textarea class="textarea-antecedent form-control form-control-user" name="name" rows="4" cols="60"
+                              [ngModel]="personales" name="personales" value="{{personales}}">
+                    </textarea>
+                </div>
+                <div class="align-right">
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                      <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>

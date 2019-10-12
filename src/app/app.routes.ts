@@ -26,6 +26,7 @@ const appRoutes: Routes = [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'profile', component: ProfileComponent},
             {path: 'pacients', component: PacientsComponent},
+            {path: 'pacient-edit/new-pacient', component: PacientEditComponent},
             {path: 'pacient-edit/:id', component: PacientEditComponent},
             {path: 'search/pacients/:text', component: PacientsSearchComponent},
             {path: '', redirectTo: '/dashboard', pathMatch: 'full'}

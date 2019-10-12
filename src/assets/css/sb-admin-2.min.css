@@ -11343,3 +11343,16 @@ body.sidebar-toggled footer.sticky-footer {
 .border-right-hidden {
     border-right: hidden
 }
+
+/* Hide spinner in number and date inputs */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+textarea.textarea-antecedent {
+  border-radius: 1rem !important
+}
