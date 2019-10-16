@@ -10,6 +10,8 @@ import { NgForm } from '@angular/forms';
 })
 export class ForgotpasswordComponent implements OnInit {
 
+  email = '';
+
   constructor(
     // tslint:disable-next-line: variable-name
     public _userService: UserService,

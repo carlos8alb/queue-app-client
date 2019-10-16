@@ -19,6 +19,7 @@ export class PacientEditComponent implements OnInit {
   loading: boolean;
   birthday: string;
   age: number;
+  personales = '';
 
   constructor(
     public router: Router,
