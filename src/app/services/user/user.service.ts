@@ -3,10 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/users';
 import { GLOBAL } from '../../config/config';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/rx';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/throwError';
+import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -41,7 +38,7 @@ export class UserService {
         this.saveStorage(resp.id, resp.token, resp.user);
         return true;
       })
-      .catch(err => {
+      .catchError(err => {
         let errorMessage: string;
         if (err.status === 0) {
           errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
@@ -74,7 +71,7 @@ export class UserService {
         Swal.fire('Bienvenido', 'El usuario ha sido creado correctamente', 'success');
         return resp.user;
       })
-      .catch(err => {
+      .catchError(err => {
         Swal.fire('', err.error.message, 'error');
         return Observable.throwError(err);
       });
@@ -92,7 +89,7 @@ export class UserService {
         Swal.fire('', 'El usuario ha sido actualizado correctamente', 'success');
         return resp;
       })
-      .catch(err => {
+      .catchError(err => {
         console.log(err);
         Swal.fire('', err.error.message, 'error');
         return Observable.throwError(err);
