@@ -4,7 +4,9 @@ import { User } from '../../models/users';
 import { GLOBAL } from '../../config/config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/rx';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/throwError';
 import Swal from 'sweetalert2';
 
 @Injectable({
