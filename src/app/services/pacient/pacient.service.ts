@@ -67,12 +67,12 @@ export class PacientService {
     }
 
   deletePacient(pacientId) {
-      this.url = GLOBAL.url + '/pacient/' + pacientId + '?token=' + this.token;
-      return this.http.delete(this.url)
-        .map((resp: any) => {
+    this.url = GLOBAL.url + '/pacient/' + pacientId + '?token=' + this.token;
+    return this.http.delete(this.url).pipe(
+        map((resp: any) => {
           return resp;
-        })
-        .catch(err => {
+        }),
+        catchError(err => {
           let errorMessage: string;
           if (err.status === 0) {
             errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
@@ -80,34 +80,37 @@ export class PacientService {
             errorMessage = err.error.message;
           }
           Swal.fire('', errorMessage, 'error');
-          return Observable.throwError(err);
-        });
+          throw(err);
+        })
+      );
   }
 
   registerPacient( pacient: Pacient )  {
     this.url = GLOBAL.url + '/pacient/register?token=' + this.token;
-    return this.http.post(this.url, pacient)
-      .map((resp: any) => {
+    return this.http.post(this.url, pacient).pipe(
+      map((resp: any) => {
         Swal.fire('', 'El paciente ha sido creado correctamente', 'success');
         return resp.pacient;
-      })
-      .catch(err => {
+      }),
+      catchError(err => {
         Swal.fire('', err.error.message, 'error');
-        return Observable.throwError(err);
-      });
+        throw(err);
+      })
+      );
   }
 
   updatePacient( pacientId, pacient: Pacient )  {
     this.url = GLOBAL.url + `/pacient/update/${ pacientId }?token=${ this.token }`;
-    return this.http.put(this.url, pacient)
-      .map((resp: any) => {
+    return this.http.put(this.url, pacient).pipe(
+      map((resp: any) => {
         Swal.fire('', 'El paciente ha sido actualizado correctamente', 'success');
         return resp;
-      })
-      .catch(err => {
+      }),
+      catchError(err => {
         Swal.fire('', err.error.message, 'error');
-        return Observable.throwError(err);
-      });
+        throw (err);
+      })
+    );
   }
 
 }
