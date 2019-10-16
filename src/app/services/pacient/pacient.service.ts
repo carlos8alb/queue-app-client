@@ -84,7 +84,6 @@ export class PacientService {
   }
 
   registerPacient( pacient: Pacient )  {
-    console.log(this.token);
     this.url = GLOBAL.url + '/pacient/register?token=' + this.token;
     return this.http.post(this.url, pacient)
       .map((resp: any) => {
