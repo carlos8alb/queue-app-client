@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/users';
 import { GLOBAL } from '../../config/config';
-import { Observable } from 'rxjs/Observable';
 import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
@@ -33,12 +32,12 @@ export class UserService {
 
   login(user: User) {
     this.url = GLOBAL.url + '/login';
-    return this.http.post(this.url, user)
-      .map((resp: any) => {
+    return this.http.post(this.url, user).pipe(
+      map((resp: any) => {
         this.saveStorage(resp.id, resp.token, resp.user);
         return true;
-      })
-      .catchError(err => {
+      }),
+      catchError(err => {
         let errorMessage: string;
         if (err.status === 0) {
           errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
@@ -46,8 +45,10 @@ export class UserService {
           errorMessage = err.error.message;
         }
         Swal.fire('', errorMessage, 'error');
-        return Observable.throwError(err);
-      });
+        // return Observable.throwError(err);
+        throw err;
+      })
+    );
   }
 
   saveStorage(id: string, token: string, user: User) {
@@ -66,35 +67,36 @@ export class UserService {
 
   register( user: User )  {
     this.url = GLOBAL.url + '/user/register';
-    return this.http.post(this.url, user)
-      .map((resp: any) => {
-        Swal.fire('Bienvenido', 'El usuario ha sido creado correctamente', 'success');
-        return resp.user;
-      })
-      .catchError(err => {
-        Swal.fire('', err.error.message, 'error');
-        return Observable.throwError(err);
-      });
-  }
+    return this.http.post(this.url, user).pipe(
+        map((resp: any) => {
+          Swal.fire('Bienvenido', 'El usuario ha sido creado correctamente', 'success');
+          return resp.user;
+        }),
+        catchError(err => {
+          Swal.fire('', err.error.message, 'error');
+          throw (err);
+        })
+      );
+    }
 
   update( userUpdate: User )  {
     this.url = GLOBAL.url + '/user/update/' + userUpdate._id + '?token=' + this.token;
-    return this.http.put(this.url, userUpdate)
-      .map((resp: any) => {
+    return this.http.put(this.url, userUpdate).pipe(
+        map((resp: any) => {
+          if (userUpdate._id === this.user._id) {
+            this.saveStorage(resp.userUpdatedId, this.token, resp.user);
+          }
 
-        if (userUpdate._id === this.user._id) {
-          this.saveStorage(resp.userUpdatedId, this.token, resp.user);
-        }
-
-        Swal.fire('', 'El usuario ha sido actualizado correctamente', 'success');
-        return resp;
-      })
-      .catchError(err => {
-        console.log(err);
-        Swal.fire('', err.error.message, 'error');
-        return Observable.throwError(err);
-      });
-  }
+          Swal.fire('', 'El usuario ha sido actualizado correctamente', 'success');
+          return resp;
+        }),
+        catchError(err => {
+          console.log(err);
+          Swal.fire('', err.error.message, 'error');
+          throw (err);
+        })
+      );
+    }
 
   logOut() {
     this.user = null;

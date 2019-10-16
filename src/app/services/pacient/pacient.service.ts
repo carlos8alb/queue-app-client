@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { GLOBAL } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { Observable } from 'rxjs/Observable';
 import { UserService } from '../user/user.service';
 import { User } from 'src/app/models/users';
-import { filter, map } from 'rxjs/operators';
 import { Pacient } from 'src/app/models/pacients';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -30,40 +29,42 @@ export class PacientService {
 
     this.url = GLOBAL.url + '/pacient?from=' + from + '&itemspage=' + itemsPage + '&sortby=' +
                sortBy + '&textSearched=' + textSearched + '&userId=' + userId;
-    return this.http.get(this.url)
-      .map((resp: any) => {
-            return resp;
-      })
-      .catch(err => {
-        let errorMessage: string;
-        if (err.status === 0) {
-          errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
-        } else {
-          errorMessage = err.error.message;
-        }
-        Swal.fire('', errorMessage, 'error');
-        return Observable.throwError(err);
-      });
-  }
+    return this.http.get(this.url).pipe(
+        map((resp: any) => {
+          return resp;
+        }),
+        catchError(err => {
+          let errorMessage: string;
+          if (err.status === 0) {
+            errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
+          } else {
+            errorMessage = err.error.message;
+          }
+          Swal.fire('', errorMessage, 'error');
+          throw (err);
+        })
+      );
+    }
 
   getPacient(pacientId) {
 
     this.url = GLOBAL.url + '/pacient/' + pacientId;
-    return this.http.get(this.url)
-      .map((resp: any) => {
-            return resp;
-      })
-      .catch(err => {
-        let errorMessage: string;
-        if (err.status === 0) {
-          errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
-        } else {
-          errorMessage = err.error.message;
-        }
-        Swal.fire('', errorMessage, 'error');
-        return Observable.throwError(err);
-      });
-  }
+    return this.http.get(this.url).pipe(
+        map((resp: any) => {
+          return resp;
+        }),
+        catchError(err => {
+          let errorMessage: string;
+          if (err.status === 0) {
+            errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
+          } else {
+            errorMessage = err.error.message;
+          }
+          Swal.fire('', errorMessage, 'error');
+          throw (err);
+        })
+      );
+    }
 
   deletePacient(pacientId) {
       this.url = GLOBAL.url + '/pacient/' + pacientId + '?token=' + this.token;
