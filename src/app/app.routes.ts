@@ -21,7 +21,7 @@ const appRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        canActivate: [ LoginGuard ],
+        canActivateChild: [ LoginGuard ],
         children: [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'profile', component: ProfileComponent},

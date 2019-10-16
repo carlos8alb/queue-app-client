@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivateChild , Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginGuard implements CanActivate {
+export class LoginGuard implements CanActivateChild  {
 
   constructor(
     // tslint:disable-next-line: variable-name
@@ -15,7 +15,7 @@ export class LoginGuard implements CanActivate {
 
   }
 
-  canActivate() {
+  canActivateChild() {
     if (this._userService.loggedIn()) {
       return true;
     } else {

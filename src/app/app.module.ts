@@ -29,6 +29,7 @@ import { PacientsComponent } from './pages/pacients/pacients.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,7 @@ import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

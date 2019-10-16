@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 
+declare function init_plugins();
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -14,6 +16,7 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    init_plugins();
   }
 
   logOut() {

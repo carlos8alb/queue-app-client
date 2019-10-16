@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user/user.service';
+import { Antecedent } from 'src/app/models/antecedents';
+import { AntecedentService } from '../../services/antecedent/antecedent.service';
 
 @Component({
   selector: 'app-pacient-edit',
@@ -15,11 +17,11 @@ import { UserService } from '../../services/user/user.service';
 export class PacientEditComponent implements OnInit {
 
   pacient: Pacient;
+  antecedent: Antecedent;
   pacientId = '';
   loading: boolean;
   birthday: string;
   age: number;
-  personales = '';
 
   constructor(
     public router: Router,
@@ -27,7 +29,9 @@ export class PacientEditComponent implements OnInit {
     // tslint:disable-next-line: variable-name
     public _pacientService: PacientService,
     // tslint:disable-next-line: variable-name
-    public _userService: UserService
+    public _userService: UserService,
+    // tslint:disable-next-line: variable-name
+    public _antecedentService: AntecedentService
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.pacientId = params.id;
@@ -39,18 +43,28 @@ export class PacientEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  loadPacient(pacientId: String) {
+  loadPacient(pacientId: string) {
     if (pacientId) {
       this.loading = true;
       this._pacientService.getPacient(this.pacientId)
-        .subscribe( (resp: any) => {
-          this.pacient = resp.pacient;
+        .subscribe( (respPacient: any) => {
+          this.pacient = respPacient.pacient;
           this.birthday = moment(this.pacient.birthday).format('YYYY-MM-DD');
           this.age = moment().diff(this.birthday, 'years', false);
-          this.loading = false;
+
+          this._antecedentService.getAntecedent(this.pacientId)
+            .subscribe((respAntecedent: any) => {
+              if (respAntecedent.antecedent) {
+                this.antecedent = respAntecedent.antecedent;
+              } else {
+                this.antecedent = new Antecedent('', '', '', '', '', this.pacientId);
+              }
+              this.loading = false;
+            });
         });
     } else {
       this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', '', '', '');
+      this.antecedent = new Antecedent('', '', '', '', '', '');
     }
   }
 
@@ -59,7 +73,7 @@ export class PacientEditComponent implements OnInit {
     this.age = moment().diff(datePickerValue, 'years', false);
   }
 
-  onSubmit(pacientForm: NgForm) {
+  onSubmitPacient(pacientForm: NgForm) {
     if (pacientForm.invalid) {
       return;
     }
@@ -71,7 +85,12 @@ export class PacientEditComponent implements OnInit {
     if (!this.pacientId) {
       this._pacientService.registerPacient(pacientForm.value)
         .subscribe(resp => {
-          this.router.navigate(['/pacient-edit', resp._id])
+          this.antecedent.pacientId = resp._id;
+          this._antecedentService.registerAntecedent(this.antecedent)
+          .subscribe(respAntecedent => {
+            this.antecedent = respAntecedent.antecedent;
+            this.router.navigate(['/pacient-edit', resp._id]);
+          });
         });
     } else {
       Swal.fire({
@@ -83,7 +102,31 @@ export class PacientEditComponent implements OnInit {
           this._pacientService.updatePacient(this.pacientId, pacientForm.value)
             .subscribe(resp => resp.ok);
         } else {
-          this.router.navigate(['/pacient-edit', this.pacientId])
+          this.router.navigate(['/pacient-edit', this.pacientId]);
+          return;
+        }
+      });
+    }
+  }
+
+  onSubmitAntecedent(antecedentsForm: NgForm) {
+    if (antecedentsForm.invalid) {
+      return;
+    }
+
+    if (!this.pacientId) {
+      Swal.fire('', 'Primero debe guardar los datos personales del paciente', 'info');
+    } else {
+      Swal.fire({
+        title: '¿Desea guardar los cambios?',
+        type: 'question',
+        showCancelButton: true
+      }).then((result) => {
+        if (result.value) {
+          this._antecedentService.updateAntecedent(this.pacientId, antecedentsForm.value)
+            .subscribe(resp => resp.ok);
+        } else {
+          this.router.navigate(['/pacient-edit', this.pacientId]);
           return;
         }
       });
