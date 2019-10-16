@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PacientService } from '../../services/pacient/pacient.service';
 import { Pacient } from '../../models/pacients';
-import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { UserService } from '../../services/user/user.service';
 import { Antecedent } from 'src/app/models/antecedents';
 import { AntecedentService } from '../../services/antecedent/antecedent.service';
+import { Measure } from '../../models/measures';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pacient-edit',
@@ -18,6 +19,7 @@ export class PacientEditComponent implements OnInit {
 
   pacient: Pacient;
   antecedent: Antecedent;
+  measure: Measure;
   pacientId = '';
   loading: boolean;
   birthday: string;
@@ -40,8 +42,7 @@ export class PacientEditComponent implements OnInit {
     this.loadPacient(this.pacientId);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   loadPacient(pacientId: string) {
     if (pacientId) {
@@ -59,12 +60,21 @@ export class PacientEditComponent implements OnInit {
               } else {
                 this.antecedent = new Antecedent('', '', '', '', '', this.pacientId);
               }
+
+              // Cargar Measures si existen
+
               this.loading = false;
             });
         });
     } else {
+      // Si el paciente es nuevo porque no hay un id en la url
       this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', '', '', '');
       this.antecedent = new Antecedent('', '', '', '', '', '');
+      this.measure = new Measure(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                moment().format('YYYY-MM-DD'),
+                                '', this.pacientId, 'null', '');
     }
   }
 
@@ -131,6 +141,42 @@ export class PacientEditComponent implements OnInit {
         }
       });
     }
+  }
+
+  onSubmitMeasures(measuresForm: NgForm) {
+    if (measuresForm.invalid) {
+      return;
+    }
+
+    Swal.fire({
+      title: '¿Desea guardar los cambios?',
+      type: 'question',
+      showCancelButton: true
+    }).then((result) => {
+      if (result.value) {
+        this._antecedentService.updateAntecedent(this.pacientId, measuresForm.value)
+          .subscribe(resp => resp.ok);
+      } else {
+        this.router.navigate(['/pacient-edit', this.pacientId]);
+        return;
+      }
+    });
+
+  }
+
+  openModal() {
+
+    if (!this.pacientId) {
+      // Swal.fire('', 'Primero debe guardar los datos personales del paciente', 'info');
+      // const btn: any = document.getElementById('closeBtn') as HTMLElement;
+      // console.log(btn);
+      // btn.click();
+      // console.log(this.pacientId);
+      // document.getElementById('closeBtn').click();
+    } else {
+      // NUEVO
+    }
+
   }
 
 }
