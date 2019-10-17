@@ -9,6 +9,7 @@ import { AntecedentService } from '../../services/antecedent/antecedent.service'
 import { Measure } from '../../models/measures';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { MeasureService } from '../../services/measure/measure.service';
 
 @Component({
   selector: 'app-pacient-edit',
@@ -24,6 +25,7 @@ export class PacientEditComponent implements OnInit {
   loading: boolean;
   birthday: string;
   age: number;
+  measures: Array<any> = [];
 
   constructor(
     public router: Router,
@@ -33,7 +35,9 @@ export class PacientEditComponent implements OnInit {
     // tslint:disable-next-line: variable-name
     public _userService: UserService,
     // tslint:disable-next-line: variable-name
-    public _antecedentService: AntecedentService
+    public _antecedentService: AntecedentService,
+    // tslint:disable-next-line: variable-name
+    public _measureService: MeasureService
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.pacientId = params.id;
@@ -43,6 +47,14 @@ export class PacientEditComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  loadMeasures(pacientId: string) {
+    this._measureService.getMeasures(pacientId)
+      .subscribe((respMeasures: any) => {
+        // Close modal
+        this.measures = respMeasures.measures;
+      });
+  }
 
   loadPacient(pacientId: string) {
     if (pacientId) {
@@ -63,6 +75,8 @@ export class PacientEditComponent implements OnInit {
 
               // Cargar Measures si existen
 
+              this.loadMeasures(this.pacientId);
+
               this.loading = false;
             });
         });
@@ -70,12 +84,14 @@ export class PacientEditComponent implements OnInit {
       // Si el paciente es nuevo porque no hay un id en la url
       this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', '', '', '');
       this.antecedent = new Antecedent('', '', '', '', '', '');
-      this.measure = new Measure(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                moment().format('YYYY-MM-DD'),
-                                '', this.pacientId, 'null', '');
     }
+
+    this.measure = new Measure(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      moment().format('YYYY-MM-DD'),
+      '', this.pacientId, 'null', '');
+
   }
 
   // Cargar edad cuando se ingresa la fecha de nacimiento
@@ -154,11 +170,20 @@ export class PacientEditComponent implements OnInit {
       showCancelButton: true
     }).then((result) => {
       if (result.value) {
-        this._antecedentService.updateAntecedent(this.pacientId, measuresForm.value)
-          .subscribe(resp => resp.ok);
-      } else {
-        this.router.navigate(['/pacient-edit', this.pacientId]);
-        return;
+
+        if (this.measure._id) {
+          // Update
+          this._measureService.updateMeasure(this.measure._id, this.measure)
+            .subscribe(() => this.loadMeasures(this.pacientId));
+        } else {
+           // Register
+           this._measureService.registerMeasure(measuresForm.value)
+           .subscribe(() => this.loadMeasures(this.pacientId));
+        }
+
+        // Close modal
+        document.getElementById('closeBtn').click();
+
       }
     });
 
@@ -166,17 +191,34 @@ export class PacientEditComponent implements OnInit {
 
   openModal() {
 
-    if (!this.pacientId) {
-      // Swal.fire('', 'Primero debe guardar los datos personales del paciente', 'info');
-      // const btn: any = document.getElementById('closeBtn') as HTMLElement;
-      // console.log(btn);
-      // btn.click();
-      // console.log(this.pacientId);
-      // document.getElementById('closeBtn').click();
-    } else {
-      // NUEVO
-    }
+    this.measure = new Measure(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      moment().format('YYYY-MM-DD'),
+      '', this.pacientId, 'null', '');
 
+  }
+
+ editMeasure( measureId ) {
+    this._measureService.getMeasure(measureId)
+          .subscribe(resp => {
+            this.measure = resp.measure;
+          });
+  }
+
+  deleteMeasure( measureId ) {
+    Swal.fire({
+      title: '¿Desea eliminar los datos?',
+      type: 'question',
+      showCancelButton: true
+    }).then((result) => {
+      if (result.value) {
+        this._measureService.deleteMeasure(measureId)
+          .subscribe(resp => {
+            this.loadMeasures(this.pacientId);
+          });
+      }
+    });
   }
 
 }

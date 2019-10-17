@@ -46,7 +46,7 @@ export class Measure {
     public musloAnterior: number,
     public pantorrilla: number,
     public date: string,
-    public notas: string,
+    public others: string,
     public pacientId?: string,
     public img?: string,
     public _id?: string
