@@ -47,9 +47,11 @@ export class PacientsComponent implements OnInit {
       showCancelButton: true
     }).then((result) => {
       if (result.value) {
+        this.loading = true;
         this._pacientService.deletePacient(pacientId)
           .subscribe( (resp: any) => {
             this.loadPacients();
+            this.loading = false;
           });
       } else {
         return false;
