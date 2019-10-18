@@ -99,23 +99,23 @@
                     <form class="user" ngNativeValidate #antecedentsForm=ngForm (ngSubmit)="onSubmitAntecedent(antecedentsForm)">
                         <div class="row mb-3">
                             <label class="p-0 m-0 ml-3"><small>Personales</small></label>
-                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [ngModel]="antecedent.personal" name="personal" value="{{antecedent.personal}}"></textarea>
+                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [(ngModel)]="antecedent.personal" name="personal" value="{{antecedent.personal}}"></textarea>
                         </div>
                         <div class="row mb-3">
                             <label class="p-0 m-0 ml-3"><small>Familiares</small></label>
-                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [ngModel]="antecedent.family" name="family" value="{{antecedent.family}}"></textarea>
+                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [(ngModel)]="antecedent.family" name="family" value="{{antecedent.family}}"></textarea>
                         </div>
                         <div class="row mb-3">
                             <label class="p-0 m-0 ml-3"><small>Medicos</small></label>
-                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [ngModel]="antecedent.medication" name="medication" value="{{antecedent.medication}}"></textarea>
+                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [(ngModel)]="antecedent.medication" name="medication" value="{{antecedent.medication}}"></textarea>
                         </div>
                         <div class="row mb-3">
                             <label class="p-0 m-0 ml-3"><small>Bioquímicos</small></label>
-                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [ngModel]="antecedent.biochemical" name="biochemical" value="{{antecedent.biochemical}}"></textarea>
+                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [(ngModel)]="antecedent.biochemical" name="biochemical" value="{{antecedent.biochemical}}"></textarea>
                         </div>
                         <div class="row mb-3">
                             <label class="p-0 m-0 ml-3"><small>Otros</small></label>
-                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [ngModel]="antecedent.others" name="others" value="{{antecedent.others}}"></textarea>
+                            <textarea class="textarea-antecedent form-control form-control-user" rows="4" cols="60" [(ngModel)]="antecedent.others" name="others" value="{{antecedent.others}}"></textarea>
                         </div>
                         <div class="align-right">
                             <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -271,7 +271,7 @@
                                         <div class="form-group">
                                             <label class="p-0 m-0"><small>Medial Estiloidea Dactilar</small></label>
                                             <div class="input-group">
-                                                <input type="number" step="any" min="0" max="10000" class="form-control" placeholder="Ingrese medial estiloidea dactilar" aria-describedby="basic-addon2" [(ngModel)]="measure.medialEstiloideaDactilar" name="medialEstiloideaDactilar" value="{{pacient.medialEstiloideaDactilar}}">
+                                                <input type="number" step="any" min="0" max="10000" class="form-control" placeholder="Ingrese medial estiloidea dactilar" aria-describedby="basic-addon2" [(ngModel)]="measure.medialEstiloideaDactilar" name="medialEstiloideaDactilar" value="{{measure.medialEstiloideaDactilar}}">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">cm</span>
                                                 </div>

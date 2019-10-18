@@ -56,26 +56,25 @@ export class PacientEditComponent implements OnInit {
       });
   }
 
-  loadPacient(pacientId: string) {
-    if (pacientId) {
+  loadPacient(id: string) {
+    if (id) {
       this.loading = true;
-      this._pacientService.getPacient(this.pacientId)
+      this._pacientService.getPacient(id)
         .subscribe( (respPacient: any) => {
           this.pacient = respPacient.pacient;
           this.birthday = moment(this.pacient.birthday).format('YYYY-MM-DD');
           this.age = moment().diff(this.birthday, 'years', false);
 
-          this._antecedentService.getAntecedent(this.pacientId)
+          this._antecedentService.getAntecedent(this.pacient._id)
             .subscribe((respAntecedent: any) => {
               if (respAntecedent.antecedent) {
                 this.antecedent = respAntecedent.antecedent;
               } else {
-                this.antecedent = new Antecedent('', '', '', '', '', this.pacientId);
+                this.antecedent = new Antecedent('', '', '', '', '', id);
               }
 
               // Cargar Measures si existen
-
-              this.loadMeasures(this.pacientId);
+              this.loadMeasures(id);
 
               this.loading = false;
             });
@@ -90,7 +89,7 @@ export class PacientEditComponent implements OnInit {
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       moment().format('YYYY-MM-DD'),
-      '', this.pacientId, 'null', '');
+      '', id, 'null', '');
 
   }
 
@@ -126,7 +125,7 @@ export class PacientEditComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
           this._pacientService.updatePacient(this.pacientId, pacientForm.value)
-            .subscribe(resp => resp.ok);
+            .subscribe();
         } else {
           this.router.navigate(['/pacient-edit', this.pacientId]);
           return;
@@ -149,8 +148,20 @@ export class PacientEditComponent implements OnInit {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          this._antecedentService.updateAntecedent(this.pacientId, antecedentsForm.value)
-            .subscribe(resp => resp.ok);
+          this._antecedentService.getAntecedent(this.pacientId)
+            .subscribe((respAntecedent) => {
+              if (respAntecedent.antecedent) {
+                this._antecedentService.updateAntecedent(this.pacientId, antecedentsForm.value)
+                  .subscribe(resp => resp.ok);
+              } else {
+                this.antecedent.pacientId = this.pacientId;
+                this._antecedentService.registerAntecedent(this.antecedent)
+                .subscribe(resp => {
+                  this.antecedent = resp;
+                  this.router.navigate(['/pacient-edit', resp.pacientId]);
+                });
+              }
+            });
         } else {
           this.router.navigate(['/pacient-edit', this.pacientId]);
           return;

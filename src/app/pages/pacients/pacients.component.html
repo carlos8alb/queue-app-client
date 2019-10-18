@@ -14,6 +14,21 @@
     <div class="cointainer-fluid" *ngIf="!loading">
         <div class="card shadow mb-4">
             <div class="card-body">
+                <div class="input-group mb-3" [ngStyle]="{'width': 'max-content'}">
+
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Mostrar</label>
+                    </div>
+
+                    <select [(ngModel)]="itemsPerPage" class="custom-select" id="inputGroupSelect01">
+                      <option value="5">5</option>
+                      <option selected value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -26,16 +41,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <!-- <tfoot>
-                            <tr>
-                                <th>DNI</th>
-                                <th>Apellido</th>
-                                <th>Nombre</th>
-                                <th>Obra Social</th>
-                                <th [ngStyle]="{'border-right': 'hidden'}"></th>
-                                <th></th>
-                            </tr>
-                        </tfoot> -->
+
                         <tbody>
                             <tr *ngIf="pacients.length === 0">
                                 <br>
@@ -43,7 +49,7 @@
                                     No se encontraron pacientes
                                 </p>
                             </tr>
-                            <tr *ngFor="let pacient of pacients">
+                            <tr *ngFor="let pacient of pacients | paginate: { itemsPerPage:itemsPerPage, currentPage: p }">
                                 <td>{{pacient.dni}}</td>
                                 <td>{{pacient.surname}}</td>
                                 <td>{{pacient.name}}</td>
@@ -57,6 +63,10 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="text-center">
+                        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" responsive="true">
+                        </pagination-controls>
+                    </div>
                 </div>
             </div>
         </div>

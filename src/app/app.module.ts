@@ -29,6 +29,9 @@ import { PacientsComponent } from './pages/pacients/pacients.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 
+// Plugins
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,8 @@ import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
     BrowserModule,
     APP_ROUTES,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]
