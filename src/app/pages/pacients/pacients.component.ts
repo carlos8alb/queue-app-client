@@ -15,6 +15,7 @@ export class PacientsComponent implements OnInit {
   loading = true;
   user: User;
   itemsPerPage = 10;
+  p = 1;
 
   constructor(
     // tslint:disable-next-line: variable-name
