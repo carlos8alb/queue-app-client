@@ -11363,3 +11363,8 @@ textarea.textarea-antecedent {
 .mw-80 {
     max-width: 80%
 }
+
+.img-profile-user {
+    width: 200px;
+    height: auto
+}

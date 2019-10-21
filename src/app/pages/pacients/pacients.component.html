@@ -33,12 +33,12 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th [ngStyle]="{'border-right': 'hidden'}"></th>
+                                <th></th>
                                 <th>DNI</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Obra Social</th>
-                                <th [ngStyle]="{'border-right': 'hidden'}"></th>
-                                <th></th>
                             </tr>
                         </thead>
 
@@ -50,16 +50,16 @@
                                 </p>
                             </tr>
                             <tr *ngFor="let pacient of pacients | paginate: { itemsPerPage:itemsPerPage, currentPage: p }">
-                                <td>{{pacient.dni}}</td>
-                                <td>{{pacient.surname}}</td>
-                                <td>{{pacient.name}}</td>
-                                <td>{{pacient.socialInsureance}}</td>
                                 <td routerLink="/pacient-edit/{{pacient._id}}" class="text-center" [ngStyle]="{'border-right': 'hidden'}">
                                     <i class="fa fa-user-edit icon" aria-hidden="true"></i>
                                 </td>
                                 <td (click)="deletePacient(pacient._id)" class="text-center">
                                     <i class="fa fa-trash icon" aria-hidden="true"></i>
                                 </td>
+                                <td>{{pacient.dni}}</td>
+                                <td>{{pacient.surname}}</td>
+                                <td>{{pacient.name}}</td>
+                                <td>{{pacient.socialInsureance}}</td>
                             </tr>
                         </tbody>
                     </table>

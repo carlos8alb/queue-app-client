@@ -108,7 +108,6 @@ export class PacientEditComponent implements OnInit {
     }
 
     if (!this.pacientId) {
-      this.loading = true;
       this._pacientService.registerPacient(pacientForm.value)
         .subscribe(resp => {
           this.antecedent.pacientId = resp._id;
@@ -116,7 +115,6 @@ export class PacientEditComponent implements OnInit {
           .subscribe(respAntecedent => {
             this.antecedent = respAntecedent.antecedent;
             this.router.navigate(['/pacient-edit', resp._id]);
-            this.loading = false;
           });
         });
     } else {
@@ -126,11 +124,8 @@ export class PacientEditComponent implements OnInit {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          this.loading = true;
           this._pacientService.updatePacient(this.pacientId, pacientForm.value)
-            .subscribe(resp => {
-              this.loading = false;
-            });
+            .subscribe();
         } else {
           this.router.navigate(['/pacient-edit', this.pacientId]);
         }
@@ -152,7 +147,6 @@ export class PacientEditComponent implements OnInit {
         showCancelButton: true
       }).then((result) => {
         if (result.value) {
-          this.loading = true;
           this._antecedentService.getAntecedent(this.pacientId)
             .subscribe((respAntecedent) => {
 
@@ -167,8 +161,6 @@ export class PacientEditComponent implements OnInit {
                   this.router.navigate(['/pacient-edit', resp.pacientId]);
                 });
               }
-
-              this.loading = false;
 
             });
         } else {
@@ -190,7 +182,6 @@ export class PacientEditComponent implements OnInit {
       showCancelButton: true
     }).then((result) => {
       if (result.value) {
-        this.loading = true;
         if (this.measure._id) {
           // Update
           this._measureService.updateMeasure(this.measure._id, this.measure)
@@ -200,7 +191,6 @@ export class PacientEditComponent implements OnInit {
            this._measureService.registerMeasure(measuresForm.value)
            .subscribe(() => this.loadMeasures(this.pacientId));
         }
-        this.loading = false;
         // Close modal
         document.getElementById('closeBtn').click();
 
@@ -220,11 +210,10 @@ export class PacientEditComponent implements OnInit {
   }
 
  editMeasure( measureId ) {
-    this.loading = true;
     this._measureService.getMeasure(measureId)
           .subscribe(resp => {
+
             this.measure = resp.measure;
-            this.loading = false;
           });
   }
 
