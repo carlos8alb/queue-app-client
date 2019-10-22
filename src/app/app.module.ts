@@ -31,6 +31,7 @@ import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 
 // Plugins
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ResetpasswordComponent } from './components/forgotpassword/resetpassword.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     PacientsSearchComponent,
     PacientsComponent,
     LoaderComponent,
-    PacientEditComponent
+    PacientEditComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -51,6 +51,26 @@ export class UserService {
     );
   }
 
+  recoverPassword(email: string) {
+    this.url = GLOBAL.url + '/user/recoverpassword/' + email;
+    return this.http.get(this.url).pipe(
+      map((resp: any) => {
+        return resp;
+      }),
+      catchError(err => {
+        let errorMessage: string;
+        if (err.status === 0) {
+          errorMessage = 'Compruebe la conexión a internet. Si el problema persiste, contáctese con el administrador.';
+        } else {
+          errorMessage = err.error.message;
+        }
+        Swal.fire('', errorMessage, 'error');
+        // return Observable.throwError(err);
+        throw err;
+      })
+    );
+  }
+
   saveStorage(id: string, token: string, user: User) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
@@ -105,5 +125,20 @@ export class UserService {
     localStorage.removeItem('user');
     localStorage.removeItem('id');
   }
+
+  resetPassword( recoverPasswordId: string, body: object )  {
+    this.url = GLOBAL.url + '/user/resetpassword/' + recoverPasswordId;
+    return this.http.put(this.url, body).pipe(
+        map((resp: any) => {
+          Swal.fire('', 'La contraseña ha sido actualizada correctamente', 'success');
+          return resp;
+        }),
+        catchError(err => {
+          console.log(err);
+          Swal.fire('', err.error.message, 'error');
+          throw (err);
+        })
+      );
+    }
 
 }

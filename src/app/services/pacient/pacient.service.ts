@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GLOBAL } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2';
 import { UserService } from '../user/user.service';
 import { User } from 'src/app/models/users';
 import { Pacient } from 'src/app/models/pacients';
 import { map, catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'

@@ -5,6 +5,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/user/register.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './components/forgotpassword/resetpassword.component';
 
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { LoginGuard } from './services/guards/login.guard';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'forgotpassword', component: ForgotpasswordComponent},
+    {path: 'resetpassword/:recoverPasswordId', component: ResetpasswordComponent},
     {path: '**', component: NopagefoundComponent}
 ];
 
