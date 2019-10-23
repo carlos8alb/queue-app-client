@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="form-group row col-md-12">
-                                <div class="col-lg-4 col-md-12 mb-2">
+                                <div class="col-lg-3 col-md-12 mb-2">
                                     <label class="p-0 m-0 ml-3"><small>Fecha de Nacimiento</small></label>
                                     <input (change)="calculateAge($event.target.value)" type="date" class="form-control form-control-user" placeholder="Ingrese la fecha de nacimiento" [ngModel]="birthday" name="birthday" required value="{{birthday}}" min="1900-01-01" max="2900-01-01">
                                 </div>
@@ -53,7 +53,15 @@
                                     <label class="p-0 m-0 ml-3"><small>Edad</small></label>
                                     <input type="text" [disabled]="true" class="form-control form-control-user" placeholder="Edad" [ngModel]="age" name="age" required value="{{age}}">
                                 </div>
-                                <div class="col-lg-6 col-md-12 mb-2">
+                                <div class="col-lg-2 col-md-12 mb-2">
+                                    <label class="p-0 m-0 ml-3"><small>Sexo</small></label>
+                                    <select [ngModel]="sex" name="sex" class="custom-select form-control form-control-user form-control-dropdown">
+                                      <option selected value="Sin definir">Sin Definir</option>
+                                      <option value="Hombre">Hombre</option>
+                                      <option value="Mujer">Mujer</option>
+                                  </select>
+                                </div>
+                                <div class="col-lg-5 col-md-12 mb-2">
                                     <label class="p-0 m-0 ml-3"><small>Domicilio</small></label>
                                     <input type="text" class="form-control form-control-user" placeholder="Ingrese el domicilio" [ngModel]="pacient.address" name="address" value="{{pacient.address}}">
                                 </div>

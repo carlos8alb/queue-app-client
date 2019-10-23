@@ -11368,3 +11368,8 @@ textarea.textarea-antecedent {
     width: 200px;
     height: auto
 }
+
+.form-control-dropdown {
+    height: auto;
+    padding: 14px !important
+}

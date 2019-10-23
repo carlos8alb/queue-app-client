@@ -9,6 +9,7 @@ export class Pacient {
       public address?: string,
       public socialInsureance?: string,
       public placeAppointment?: string,
+      public sex?: string,
       public email?: string,
       public contactNumber?: string,
       public img?: string,

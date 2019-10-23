@@ -4,6 +4,7 @@ import { User } from '../../models/users';
 import { GLOBAL } from '../../config/config';
 import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,19 @@ export class UserService {
     );
   }
 
+  checkCaptcha(data) {
+    this.url = GLOBAL.url + '/user/captcha/';
+    return this.http.post(this.url, data).pipe(
+      map((resp: any) => {
+        return resp;
+      }),
+      catchError(err => {
+        throw err;
+      })
+    );
+
+  }
+
   recoverPassword(email: string) {
     this.url = GLOBAL.url + '/user/recoverpassword/' + email;
     return this.http.get(this.url).pipe(
@@ -81,8 +95,28 @@ export class UserService {
   }
 
   loggedIn() {
-    // return (this.token.length > 0) ? true : false;
     return (localStorage.getItem('token')) ? true : false;
+  }
+
+  isTokenExpired() {
+
+    const decoded = jwt_decode(this.token);
+    if (decoded.exp === undefined) {
+      return false;
+    }
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    if (date === undefined) {
+      return false;
+    }
+
+    if (date.valueOf() > new Date().valueOf()) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   register( user: User )  {

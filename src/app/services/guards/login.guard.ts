@@ -17,11 +17,13 @@ export class LoginGuard implements CanActivateChild  {
 
   canActivateChild() {
     if (this._userService.loggedIn()) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
+      if (this._userService.isTokenExpired()) {
+        return true;
+      }
     }
+    this._userService.logOut();
+    this.router.navigate(['/login']);
+    return false;
   }
 
 }

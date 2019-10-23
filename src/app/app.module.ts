@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/user/register.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './components/forgotpassword/resetpassword.component';
 
 // Pages
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
@@ -30,8 +31,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 
 // Plugins
-import {NgxPaginationModule} from 'ngx-pagination';
-import { ResetpasswordComponent } from './components/forgotpassword/resetpassword.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ResetpasswordComponent } from './components/forgotpassword/resetpasswor
     APP_ROUTES,
     FormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    RecaptchaModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

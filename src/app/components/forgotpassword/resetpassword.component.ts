@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 export class ResetpasswordComponent implements OnInit {
 
   recoverPasswordId = '';
+  password: string;
+  repassword: string;
 
   constructor(
     // tslint:disable-next-line: variable-name
@@ -34,6 +36,11 @@ export class ResetpasswordComponent implements OnInit {
 
     if ( resetPasswordForm.value.password !== resetPasswordForm.value.repassword ) {
       Swal.fire('', 'Las contraseñas deben ser iguales', 'info');
+      return;
+    }
+
+    if ( resetPasswordForm.value.password.length < 6 ) {
+      Swal.fire('', 'La contraseña debe tener al menos 6 caracteres', 'info');
       return;
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user/user.service';
+import { GLOBAL } from '../../config/config';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/users';
 import Swal from 'sweetalert2';
@@ -17,17 +18,30 @@ export class RegisterComponent implements OnInit {
   email: string;
   password: string;
   repassword: string;
+  captcha = false;
 
   constructor(
     // tslint:disable-next-line: variable-name
     public _userService: UserService,
-    public router: Router
+    public router: Router,
   ) { }
 
   ngOnInit() {
     if (this._userService.loggedIn()) {
       this.router.navigate(['/dashboard']);
     }
+  }
+
+  resolved(captchaResponse: string) {
+    const data = { captchaResponse, secretKey: GLOBAL.secretKey };
+    this._userService.checkCaptcha(data)
+      .subscribe((resp) => {
+        if (resp.success === true) {
+          this.captcha = true;
+        } else {
+          this.captcha = false;
+        }
+      });
   }
 
   onSubmit(registerForm: NgForm) {
@@ -37,12 +51,17 @@ export class RegisterComponent implements OnInit {
     }
 
     if (registerForm.value.password !== registerForm.value.repassword ) {
-      Swal.fire('', 'Las contraseñas no coinciden', 'info');
+      Swal.fire('', 'Las contraseñas no coinciden.', 'info');
       return;
     }
 
     if (registerForm.value.password.length < 6) {
-      Swal.fire('', 'La contraseña debe contener al menos 6 caracteres', 'info');
+      Swal.fire('', 'La contraseña debe contener al menos 6 caracteres.', 'info');
+      return;
+    }
+
+    if (this.captcha === false) {
+      Swal.fire('', 'Debe activar el captcha.', 'info');
       return;
     }
 

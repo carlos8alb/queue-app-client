@@ -22,6 +22,7 @@ export class PacientEditComponent implements OnInit {
   antecedent: Antecedent;
   measure: Measure;
   pacientId = '';
+  sex = 'Sin definir';
   loading: boolean;
   birthday: string;
   age: number;
@@ -64,6 +65,7 @@ export class PacientEditComponent implements OnInit {
           this.pacient = respPacient.pacient;
           this.birthday = moment(this.pacient.birthday).format('YYYY-MM-DD');
           this.age = moment().diff(this.birthday, 'years', false);
+          this.sex = this.pacient.sex;
 
           this._antecedentService.getAntecedent(this.pacient._id)
             .subscribe((respAntecedent: any) => {
@@ -81,7 +83,7 @@ export class PacientEditComponent implements OnInit {
         });
     } else {
       // Si el paciente es nuevo porque no hay un id en la url
-      this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', '', '', '');
+      this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', 'Sin Definir', '', '', '');
       this.antecedent = new Antecedent('', '', '', '', '', '');
     }
 
