@@ -10,7 +10,8 @@
         <form class="user" ngNativeValidate #userProfileform=ngForm (ngSubmit)="onSubmit(userProfileform)">
             <div class="row">
                 <div class="col-md-12 mb-2 text-center">
-                    <img class="img-fluid img-profile-user" src="../../../assets/images/no-img.jpg" alt="">
+                    <img (click)="openUploadImage()" class="img-fluid img-profile-user" [src]="user.img | noImage: 'user'" alt="">
+                    <input (change)="selectImage($event.target.files[0])" [hidden]="true" type="file" name="file" id="uploadInput">
                 </div>
                 <div class="col-md-12">
                     <div class="form-group row">

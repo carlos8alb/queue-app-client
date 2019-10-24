@@ -27,6 +27,8 @@ export class PacientEditComponent implements OnInit {
   birthday: string;
   age: number;
   measures: Array<any> = [];
+  imageUpload: File;
+  imageTemp: string | ArrayBuffer;
 
   constructor(
     public router: Router,
@@ -160,6 +162,7 @@ export class PacientEditComponent implements OnInit {
                 this._antecedentService.registerAntecedent(this.antecedent)
                 .subscribe(resp => {
                   this.antecedent = resp;
+                  Swal.fire('', 'Los antecedentes han sido cargados correctamente', 'success');
                   this.router.navigate(['/pacient-edit', resp.pacientId]);
                 });
               }
@@ -234,6 +237,49 @@ export class PacientEditComponent implements OnInit {
           });
       }
     });
+  }
+
+  openUploadImage() {
+    if (!this.pacientId) {
+      Swal.fire('', 'Primero debe guardar los datos personales del paciente', 'info');
+    } else {
+      document.getElementById('uploadInputPacient').click();
+    }
+  }
+
+  selectImage(file: File) {
+
+    if (!file) {
+      this.imageUpload = null;
+      return;
+    }
+    if (file.type.indexOf('image') < 0) {
+      this.imageUpload = null;
+      Swal.fire('', 'El archivo seleccionado no es una imagen', 'info');
+      return;
+    }
+
+    Swal.fire({
+        title: '¿Desea cambiar la foto del paciente?',
+        type: 'question',
+        showCancelButton: true
+      }).then((result) => {
+        if (result.value) {
+          this.imageUpload = file;
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            this.imageTemp = reader.result;
+          };
+          this.uploadImage();
+        } else {
+          document.getElementById('uploadInputPacient').value = '';
+        }
+      });
+
+  }
+
+uploadImage() {
+    this._pacientService.changeImage(this.imageUpload, this.pacient);
   }
 
 }

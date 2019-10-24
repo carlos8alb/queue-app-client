@@ -6,6 +6,7 @@ import { User } from 'src/app/models/users';
 import { Pacient } from 'src/app/models/pacients';
 import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { UploadService } from '../upload/upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,9 @@ export class PacientService {
   constructor(
     public http: HttpClient,
     // tslint:disable-next-line: variable-name
-    public _userService: UserService
+    public _userService: UserService,
+    // tslint:disable-next-line: variable-name
+    public _uploadService: UploadService
   ) {
     this.token = this._userService.token;
     this.user = this._userService.user;
@@ -111,6 +114,17 @@ export class PacientService {
         throw (err);
       })
     );
+  }
+
+  changeImage( file: File, pacient: Pacient ) {
+    this._uploadService.uploadFile(file, 'pacient', pacient._id, this.token)
+      .then((resp: any) => {
+        pacient.img = resp.modelUpdated.img;
+        Swal.fire('', 'Imagen actualizada', 'success');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
 }

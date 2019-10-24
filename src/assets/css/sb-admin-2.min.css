@@ -11366,7 +11366,12 @@ textarea.textarea-antecedent {
 
 .img-profile-user {
     width: 200px;
-    height: auto
+    height: auto;
+    border-radius: 100%;
+    border-color: white;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer
 }
 
 .form-control-dropdown {

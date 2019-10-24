@@ -50,7 +50,6 @@ export class AntecedentService {
     this.url = GLOBAL.url + '/antecedent/register?token=' + this.token;
     return this.http.post(this.url, antecedent).pipe(
       map((resp: any) => {
-        Swal.fire('', 'Los antecedentes han sido cargados correctamente', 'success');
         return resp.antecedent;
       }),
       catchError(err => {

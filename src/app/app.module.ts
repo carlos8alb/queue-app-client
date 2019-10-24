@@ -34,6 +34,9 @@ import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RecaptchaModule } from 'ng-recaptcha';
 
+// Pipe
+import { NoImagePipe } from './pipes/no-image.pipe';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     PacientsComponent,
     LoaderComponent,
     PacientEditComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    NoImagePipe
   ],
   imports: [
     BrowserModule,

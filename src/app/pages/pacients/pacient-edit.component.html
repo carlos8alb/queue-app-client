@@ -6,7 +6,7 @@
         <h1 *ngIf="pacientId" class="h3 mb-0 text-gray-800">Editar ficha</h1>
 
         <span [class.disabled]="!pacientId ? true : false" data-toggle="tooltip" data-placement="top" title="Primero debe guardar los datos del paciente">
-          <a [class.disabled]="!pacientId ? true : false" (click)="openModal()" data-toggle="modal" data-target="#measuresModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white">
+          <a [class.disabled]="!pacientId ? true : false" (click)="openModal()" data-toggle="modal" data-target="#measuresModal" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white d-inline-block">
             <i class="fas fa-folder-plus text-white-50"></i> Nueva antropometría
           </a>
         </span>
@@ -27,7 +27,8 @@
                 <div class="card-body">
                     <form class="user" ngNativeValidate #pacientForm=ngForm (ngSubmit)="onSubmitPacient(pacientForm)">
                         <div class="text-center">
-                            <img class="img-fluid img-profile-user" src="../../../assets/images/no-img.jpg" alt="">
+                            <img (click)="openUploadImage()" class="img-fluid img-profile-user" [src]="pacient.img | noImage: 'pacient'" alt="">
+                            <input (change)="selectImage($event.target.files[0])" [hidden]="true" type="file" name="file" id="uploadInputPacient">
                         </div>
                         <div class="row">
                             <div class="form-group row col-md-12">

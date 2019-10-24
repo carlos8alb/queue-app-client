@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 
@@ -10,6 +10,7 @@ import { UserService } from '../../services/user/user.service';
 export class HeaderComponent implements OnInit {
 
   userFullName = '';
+  img = '';
 
   constructor(
     // tslint:disable-next-line: variable-name
@@ -17,11 +18,21 @@ export class HeaderComponent implements OnInit {
     public router: Router
   ) { }
 
-  ngOnInit() {
+  loadUser() {
     if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
       this.userFullName = user.name + ' ' + user.surname;
+      this.img = user.img;
     }
+  }
+
+  ngOnInit() {
+    this.loadUser();
+    this._userService.notificacion
+      .subscribe((user) => {
+        this.userFullName = user.name + ' ' + user.surname;
+        this.img = user.img;
+      });
   }
 
   logOut() {

@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/users';
 import { GLOBAL } from '../../config/config';
 import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import * as jwt_decode from 'jwt-decode';
+import { UploadService } from '../upload/upload.service';
+
+type NewType = UploadService;
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +17,12 @@ export class UserService {
   public url: string;
   public user: User;
   public token: string;
+  public notificacion = new EventEmitter<any>();
 
   constructor(
-    public http: HttpClient
+    public http: HttpClient,
+    // tslint:disable-next-line: variable-name
+    public _uploadService: UploadService
   ) {
     this.loadStorage();
   }
@@ -173,6 +179,10 @@ export class UserService {
           throw (err);
         })
       );
+    }
+
+    changeImage( file: File, userId: string ) {
+      return this._uploadService.uploadFile(file, 'user', userId, this.token);
     }
 
 }
