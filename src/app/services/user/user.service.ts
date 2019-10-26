@@ -185,4 +185,22 @@ export class UserService {
       return this._uploadService.uploadFile(file, 'user', userId, this.token);
     }
 
+    changePassword( id, body )  {
+      this.url = GLOBAL.url + '/user/change-password/' + id + '?token=' + this.token;
+      return this.http.put(this.url, body).pipe(
+          map((resp: any) => {
+            if (id === this.user._id) {
+              this.saveStorage(resp.user._id, this.token, resp.user);
+            }
+            Swal.fire('', resp.message, 'success');
+            return resp;
+      }),
+          catchError(err => {
+            console.log(err);
+            Swal.fire('', err.error.message, 'error');
+            throw (err);
+          })
+        );
+      }
+
 }

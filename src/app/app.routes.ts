@@ -17,6 +17,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PacientsComponent } from './pages/pacients/pacients.component';
 import { PacientsSearchComponent } from './pages/search/pacients/pacients-search.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
+import { ChangePasswordComponent } from './pages/profile/change-password.component';
 
 const appRoutes: Routes = [
     {
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
         children: [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'profile', component: ProfileComponent},
+            {path: 'change-password', component: ChangePasswordComponent},
             {path: 'pacients', component: PacientsComponent},
             {path: 'pacient-edit/new-pacient', component: PacientEditComponent},
             {path: 'pacient-edit/:id', component: PacientEditComponent},

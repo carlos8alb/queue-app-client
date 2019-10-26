@@ -29,6 +29,7 @@ import { PacientsSearchComponent } from './pages/search/pacients/pacients-search
 import { PacientsComponent } from './pages/pacients/pacients.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
+import { ChangePasswordComponent } from './pages/profile/change-password.component';
 
 // Plugins
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -56,7 +57,8 @@ import { NoImagePipe } from './pipes/no-image.pipe';
     LoaderComponent,
     PacientEditComponent,
     ResetpasswordComponent,
-    NoImagePipe
+    NoImagePipe,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

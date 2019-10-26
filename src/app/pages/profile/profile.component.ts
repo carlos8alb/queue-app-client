@@ -4,6 +4,7 @@ import { User } from 'src/app/models/users';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-profile',
@@ -94,7 +95,7 @@ export class ProfileComponent implements OnInit {
           // };
           this.uploadImage();
         } else {
-          document.getElementById('uploadInput').value = '';
+          (document.getElementById('uploadInput') as HTMLInputElement).value = '';
         }
       });
 

@@ -217,8 +217,8 @@ export class PacientEditComponent implements OnInit {
  editMeasure( measureId ) {
     this._measureService.getMeasure(measureId)
           .subscribe(resp => {
-
             this.measure = resp.measure;
+            this.measure.date = moment(this.measure.date).format('YYYY-MM-DD');
           });
   }
 
@@ -272,7 +272,7 @@ export class PacientEditComponent implements OnInit {
           };
           this.uploadImage();
         } else {
-          document.getElementById('uploadInputPacient').value = '';
+          (document.getElementById('uploadInputPacient') as HTMLInputElement).value = '';
         }
       });
 

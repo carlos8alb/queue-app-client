@@ -11378,3 +11378,8 @@ textarea.textarea-antecedent {
     height: auto;
     padding: 14px !important
 }
+
+.form-change-password {
+    width: 100%;
+    margin: auto 10%
+}
