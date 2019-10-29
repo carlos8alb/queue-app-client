@@ -30,6 +30,7 @@ import { PacientsComponent } from './pages/pacients/pacients.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 import { ChangePasswordComponent } from './pages/profile/change-password.component';
+import { MeasuresChartComponent } from './pages/pacients/measures-chart.component';
 
 // Plugins
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -37,6 +38,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 
 // Pipe
 import { NoImagePipe } from './pipes/no-image.pipe';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -58,7 +60,8 @@ import { NoImagePipe } from './pipes/no-image.pipe';
     PacientEditComponent,
     ResetpasswordComponent,
     NoImagePipe,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    MeasuresChartComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { NoImagePipe } from './pipes/no-image.pipe';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    RecaptchaModule
+    RecaptchaModule,
+    ChartsModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

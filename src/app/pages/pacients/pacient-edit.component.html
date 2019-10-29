@@ -5,11 +5,14 @@
         <h1 *ngIf="!pacientId" class="h3 mb-0 text-gray-800">Nueva ficha</h1>
         <h1 *ngIf="pacientId" class="h3 mb-0 text-gray-800">Editar ficha</h1>
 
-        <span [class.disabled]="!pacientId ? true : false" data-toggle="tooltip" data-placement="top" title="Primero debe guardar los datos del paciente">
-          <a [class.disabled]="!pacientId ? true : false" (click)="openModal()" data-toggle="modal" data-target="#measuresModal" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white d-inline-block">
-            <i class="fas fa-folder-plus text-white-50"></i> Nueva antropometría
-          </a>
-        </span>
+        <div>
+            <span [class.disabled]="!pacientId ? true : false" data-toggle="tooltip" data-placement="top" title="Primero debe guardar los datos del paciente" class="mr-2">
+              <a [class.disabled]="!pacientId ? true : false" (click)="openModal()" data-toggle="modal" data-target="#measuresModal" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white d-inline-block">
+                <i class="fas fa-folder-plus text-white-50"></i> Nueva antropometría
+              </a>
+            </span>
+            <a routerLink="/measures-chart/{{pacientId}}" class="d-inline-block d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-chart-bar text-white-50"></i> Ver progreso</a>
+        </div>
     </div>
 
     <div>
@@ -52,7 +55,7 @@
                                 </div>
                                 <div class="col-lg-2 col-md-12 mb-2">
                                     <label class="p-0 m-0 ml-3"><small>Edad</small></label>
-                                    <input type="text" [disabled]="true" class="form-control form-control-user" placeholder="Edad" [ngModel]="age" name="age" required value="{{age}}">
+                                    <input type="text" class="form-control form-control-user" placeholder="Edad" [ngModel]="pacient.age" name="age" required value="{{pacient.age}}">
                                 </div>
                                 <div class="col-lg-2 col-md-12 mb-2">
                                     <label class="p-0 m-0 ml-3"><small>Sexo</small></label>
@@ -187,7 +190,7 @@
                                             <label class="p-0 m-0"><small>Observaciones</small></label>
                                             <textarea class="form-control" rows="4" cols="60" [(ngModel)]="measure.others" name="others" value="{{measure.others}}"></textarea>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" [hidden]="true">
                                             <label class="p-0 m-0"><small>Imágenes</small></label>
                                             <!-- <input type="file" class="form-control h-auto" [(ngModel)]="measure.img" name="img" value="{{measure.img}}"> -->
                                             <input type="file" class="form-control h-auto">
@@ -242,8 +245,8 @@
                                             <label class="p-0 m-0"><small>IMC</small></label>
                                             <div class="input-group">
                                                 <input type="number" step="any" min="0" max="10000" class="form-control" placeholder="Ingrese IMC" aria-describedby="basic-addon2" [(ngModel)]="measure.imc" name="imc" value="{{measure.imc}}">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">Calcular</span>
+                                                <div class="input-group-append cursor-pointer">
+                                                    <span (click)="calcularIMC()" class="input-group-text" id="basic-addon2">Calcular</span>
                                                 </div>
                                             </div>
                                         </div>

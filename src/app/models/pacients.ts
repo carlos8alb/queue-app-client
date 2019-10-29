@@ -5,6 +5,7 @@ export class Pacient {
       public name: string,
       public surname: string,
       public birthday: string,
+      public age: string,
       public user: string,
       public address?: string,
       public socialInsureance?: string,

@@ -1,0 +1,25 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Paciente: {{ fullName }}</h1>
+        <a routerLink="/pacient-edit/{{pacientId}}" class="d-inline-block d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left text-white-50"></i> Volver</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Progreso del paciente</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body p-1">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -66,7 +66,7 @@ export class PacientEditComponent implements OnInit {
         .subscribe( (respPacient: any) => {
           this.pacient = respPacient.pacient;
           this.birthday = moment(this.pacient.birthday).format('YYYY-MM-DD');
-          this.age = moment().diff(this.birthday, 'years', false);
+          // this.age = moment().diff(this.birthday, 'years', false);
           this.sex = this.pacient.sex;
 
           this._antecedentService.getAntecedent(this.pacient._id)
@@ -85,7 +85,7 @@ export class PacientEditComponent implements OnInit {
         });
     } else {
       // Si el paciente es nuevo porque no hay un id en la url
-      this.pacient = new Pacient('', '', '', '', this._userService.user._id, '', '', '', 'Sin Definir', '', '', '');
+      this.pacient = new Pacient('', '', '', '', '', this._userService.user._id, '', '', '', 'Sin Definir', '', '', '');
       this.antecedent = new Antecedent('', '', '', '', '', '');
     }
 
@@ -99,7 +99,7 @@ export class PacientEditComponent implements OnInit {
 
   // Cargar edad cuando se ingresa la fecha de nacimiento
   calculateAge(datePickerValue) {
-    this.age = moment().diff(datePickerValue, 'years', false);
+    // this.age = moment().diff(datePickerValue, 'years', false);
   }
 
   onSubmitPacient(pacientForm: NgForm) {
@@ -108,7 +108,7 @@ export class PacientEditComponent implements OnInit {
     }
 
     if (this.age <= 0) {
-      Swal.fire('', 'La fecha de nacimiento ingresada es incorrecta.', 'info');
+      // Swal.fire('', 'La fecha de nacimiento ingresada es incorrecta.', 'info');
     }
 
     if (!this.pacientId) {
@@ -278,8 +278,15 @@ export class PacientEditComponent implements OnInit {
 
   }
 
-uploadImage() {
-    this._pacientService.changeImage(this.imageUpload, this.pacient);
+  uploadImage() {
+      this._pacientService.changeImage(this.imageUpload, this.pacient);
+  }
+
+  calcularIMC() {
+    if ( this.measure.pesoActual > 0 && this.measure.talla > 0) {
+      const imc = (this.measure.pesoActual / (this.measure.talla * this.measure.talla) * 10000).toFixed(2);
+      this.measure.imc = parseFloat(imc);
+    }
   }
 
 }
