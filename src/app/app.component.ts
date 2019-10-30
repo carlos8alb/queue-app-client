@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(
     public router: Router
   ) {
-    // this.router.navigate(['/site']);
+    this.router.navigate(['/site']);
   }
 
 }
