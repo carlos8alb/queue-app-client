@@ -47,5 +47,29 @@ function init_plugins() {
             e.preventDefault();
         });
 
+        $("#siteLink").click(function() {
+            $('.nav-item').removeClass("border-bottom");
+            $(this).addClass("border-bottom");
+            $('html, body').animate({
+                scrollTop: $("#site").offset().top
+            }, 2000);
+        });
+
+        $("#featuresLink").click(function() {
+            $('.nav-item').removeClass("border-bottom");
+            $(this).addClass("border-bottom");
+            $('html, body').animate({
+                scrollTop: $("#features").offset().top
+            }, 2000);
+        });
+
+        $("#contactLink").click(function() {
+            $('.nav-item').removeClass("border-bottom");
+            $(this).addClass("border-bottom");
+            $('html, body').animate({
+                scrollTop: $("#contact").offset().top
+            }, 2000);
+        });
+
     })(jQuery); // End of use strict
 }

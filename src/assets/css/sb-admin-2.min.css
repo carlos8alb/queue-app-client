@@ -11375,7 +11375,7 @@ textarea.textarea-antecedent {
 }
 
 .form-control-dropdown {
-    height: auto;
+    height: auto !important;
     padding: 14px !important
 }
 
@@ -11386,4 +11386,20 @@ textarea.textarea-antecedent {
 
 .cursor-pointer {
     cursor: pointer
+}
+
+.container-site {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px
+}
+
+.br-10 {
+    background: rgba(221, 223, 235, 0.8);
+    border-radius: 10px
+}
+
+.home-img {
+    background-image: url("https://source.unsplash.com/DUmFLtMeAbQ");
+    background-size: cover;
+    background-repeat: no-repeat;
 }

@@ -39,6 +39,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 // Pipe
 import { NoImagePipe } from './pipes/no-image.pipe';
 import { ChartsModule } from 'ng2-charts';
+import { SiteComponent } from './components/site/site.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { ChartsModule } from 'ng2-charts';
     ResetpasswordComponent,
     NoImagePipe,
     ChangePasswordComponent,
-    MeasuresChartComponent
+    MeasuresChartComponent,
+    SiteComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,9 @@ import { RegisterComponent } from './components/user/register.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './components/forgotpassword/resetpassword.component';
 
+// Index
+import { SiteComponent } from './components/site/site.component';
+
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { LoginGuard } from './services/guards/login.guard';
 
@@ -37,6 +40,7 @@ const appRoutes: Routes = [
             {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
         ]
     },
+    {path: 'site', component: SiteComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'forgotpassword', component: ForgotpasswordComponent},

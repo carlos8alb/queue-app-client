@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   title = 'scale-app';
+
+  constructor(
+    public router: Router
+  ) {
+    // this.router.navigate(['/site']);
+  }
 
 }
