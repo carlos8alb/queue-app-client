@@ -31,6 +31,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { PacientEditComponent } from './pages/pacients/pacient-edit.component';
 import { ChangePasswordComponent } from './pages/profile/change-password.component';
 import { MeasuresChartComponent } from './pages/pacients/measures-chart.component';
+import { SiteComponent } from './components/site/site.component';
+
 
 // Plugins
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -39,7 +41,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
 // Pipe
 import { NoImagePipe } from './pipes/no-image.pipe';
 import { ChartsModule } from 'ng2-charts';
-import { SiteComponent } from './components/site/site.component';
 
 
 @NgModule({

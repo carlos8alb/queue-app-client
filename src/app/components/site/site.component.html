@@ -1,0 +1,163 @@
+<div id="site" class="body-index">
+    <nav class="navbar navbar-expand-md navbar-secondary fixed-top bg-gradient-primary text-white">
+        <div class="mr-3 sidebar-brand-icon">
+            <i class="fas fa-weight fa-2x"></i>
+        </div>
+        <a class="navbar-brand text-white" href="#">Scale App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white">
+          <i class="fa fa-bars fa-1x"></i>
+        </span>
+      </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav">
+                <li id="siteLink" class="nav-item border-bottom">
+                    <a class="nav-link text-white cursor-pointer">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li id="featuresLink" class="nav-item">
+                    <a class="nav-link text-white cursor-pointer">Características</a>
+                </li>
+                <li id="contactLink" class="nav-item">
+                    <a class="nav-link text-white cursor-pointer">Contacto</a>
+                </li>
+                <li>
+                    <button routerLink="/login" class="ml-2 btn btn-primary btn-outline-light my-2 my-sm-0">
+                        <i class="fas fa-sign-in-alt"></i> Ingresar
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="bg-gray-100 text-gray-800">
+
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron mb-0 h-100 p-0 home-img">
+            <div class="container ml-0">
+                <div class="row">
+                    <div class="p-5 col-sm-12 col-xs-12 col-* mt-3 br-10">
+                        <h2>¡Lleva el control de tus pacientes de la manera mas fácil!</h2>
+                        <h4>Para comenzar solo tienes que registrarte en Scale App</h4>
+                        <p><a class="btn btn-primary btn-outline-light" href="#/register" role="button">Regístrate</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="features"></div>
+        <hr class="w-75 m-5">
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-desktop fa-6x"></i>
+                    <h2 class="mt-2">Diseño responsive</h2>
+                    <p>
+                        Acccedé desde cualquier dispositivo y Scale App se ajustará a la pantalla.
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-globe fa-6x"></i>
+                    <h2 class="mt-2">24/7</h2>
+                    <p>
+                        Utiliza la aplicación en cualquier momento del dia mediante una conexión a internet.
+                    </p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <i class="fas fa-chart-bar fa-6x"></i>
+                    <h2 class="mt-2">Gráficos</h2>
+                    <p>
+                        De esta manera podrás ver el avance de cada paciente de una forma mas interactiva.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr id="contact" class="w-75 m-5">
+
+        <div class="container p-1">
+            <!--Section: Contact v.2-->
+            <section class="mb-4">
+
+                <!--Section heading-->
+                <h2 class="h1-responsive font-weight-bold text-center my-4">Contáctenos</h2>
+                <!--Section description-->
+                <p class="text-center w-responsive mx-auto mb-5">¿Tiene alguna pregunta? Por favor, no dude en escribirnos. Nuestro equipo le responderá lo mas pronto posible.</p>
+
+                <div class="row justify-content-center align-items-center">
+
+                    <!--Grid column-->
+                    <div class="col-md-9 mb-md-0 mb-5">
+                        <form ngNativeValidate #contactForm=ngForm (ngSubmit)="onSubmit(contactForm)">
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-md-6">
+                                    <div class="md-form mb-0">
+                                        <input type="text" [(ngModel)]="name" name="name" value="name" class="form-control" required>
+                                        <label for="name" class="">Nombre</label>
+                                    </div>
+                                </div>
+                                <!--Grid column-->
+
+                                <!--Grid column-->
+                                <div class="col-md-6">
+                                    <div class="md-form mb-0">
+                                        <input type="email" [(ngModel)]="email" name="email" value="email" class="form-control" required>
+                                        <label for="email" class="">Email</label>
+                                    </div>
+                                </div>
+                                <!--Grid column-->
+
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-form mb-0">
+                                        <input type="text" [(ngModel)]="subject" name="subject" value="subject" class="form-control" required>
+                                        <label for="subject" class="">Asunto</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row">
+
+                                <!--Grid column-->
+                                <div class="col-md-12">
+
+                                    <div class="md-form">
+                                        <textarea type="text" [(ngModel)]="message" name="message" value="message" rows="2" class="form-control md-textarea" required></textarea>
+                                        <label for="message">Mensaje</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <div class="text-center text-md-left">
+                                <button type="submit" class="btn btn-primary btn-block text-white">
+                                    <i class="fa fa-paper-plane mr-2" aria-hidden="true"></i>Send
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </section>
+            <!--Section: Contact v.2-->
+        </div>
+        <!-- /container -->
+    </main>
+
+    <app-footer></app-footer>
+</div>

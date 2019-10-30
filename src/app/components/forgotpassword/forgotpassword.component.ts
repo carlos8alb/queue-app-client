@@ -27,7 +27,7 @@ export class ForgotpasswordComponent implements OnInit {
     // tslint:disable-next-line: variable-name
     public _mailService: MailService,
   ) {
-    this.mail = new Mail('', '', '');
+    this.mail = new Mail('', '', '', '');
     this.url = GLOBAL.url;
   }
 
